@@ -1,0 +1,282 @@
+name: Test application
+
+on:
+    pull_request:
+    push:
+        branches:
+            - '[0-9]+.x'
+            - '[0-9]+.[0-9]+'
+    schedule:
+        - cron: "0 0 * * *"
+
+jobs:
+    test:
+        name: "PHP ${{ matrix.php-version }} and Node.js ${{ matrix.node-version }}"
+
+        runs-on: ubuntu-latest
+
+        env:
+            COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+        strategy:
+            fail-fast: false
+            matrix:
+                include:
+                    - php-version: '8.1'
+                      node-version: '14'
+                      mysql-version: '5.7'
+                      create-project: false
+                      create-database: false
+                      checkout-directory: 'project'
+                      working-directory: 'project'
+                      php-extensions: 'ctype, iconv, mysql, gd'
+                      tools: 'composer:v2'
+                      env:
+                          APP_ENV: test
+                          APP_SECRET: a448d1dfcaa563fce56c2fd9981f662b
+                          MAILER_URL: null://localhost
+                          SULU_ADMIN_EMAIL:
+                          DATABASE_URL: "mysql://root:@127.0.0.1:3306/sulu_test?serverVersion=5.7"
+
+                    - php-version: '8.2'
+                      node-version: '16'
+                      npm-version: '6'
+                      mysql-version: '8.0'
+                      create-project: true
+                      create-database: true
+                      checkout-directory: 'project'
+                      working-directory: 'create-project-test'
+                      php-extensions: 'ctype, iconv, mysql, gd'
+                      tools: 'composer:v2'
+                      env:
+                          APP_ENV: test
+                          APP_SECRET: a448d1dfcaa563fce56c2fd9981f662b
+                          MAILER_URL: null://localhost
+                          SULU_ADMIN_EMAIL:
+                          DATABASE_URL: "mysql://root:@127.0.0.1:3306/sulu_test?serverVersion=8.0"
+
+                    - php-version: '8.3'
+                      node-version: '16'
+                      npm-version: '6'
+                      mysql-version: '8.0'
+                      create-project: true
+                      create-database: true
+                      checkout-directory: 'project'
+                      working-directory: 'create-project-test'
+                      php-extensions: 'ctype, iconv, mysql, gd'
+                      tools: 'composer:v2'
+                      env:
+                          APP_ENV: test
+                          APP_SECRET: a448d1dfcaa563fce56c2fd9981f662b
+                          MAILER_URL: null://localhost
+                          SULU_ADMIN_EMAIL:
+                          DATABASE_URL: "mysql://root:@127.0.0.1:3306/sulu_test?serverVersion=8.0"
+
+        services:
+            mysql:
+                image: mysql:${{ matrix.mysql-version }}
+                env:
+                    MYSQL_ALLOW_EMPTY_PASSWORD: yes
+                ports:
+                    - 3306:3306
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
+
+        steps:
+            - name: Checkout project
+              uses: actions/checkout@v2
+              with:
+                  path: ${{ matrix.checkout-directory }}
+
+            - name: Install and configure PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php-version }}
+                  extensions: ${{ matrix.php-extensions }}
+                  tools: ${{ matrix.tools }}
+                  coverage: none
+
+            - name: Install composer dependencies
+              if: ${{ !matrix.create-project }}
+              uses: ramsey/composer-install@v1
+              with:
+                  composer-options: '--no-cache --working-dir=${{ matrix.working-directory }}'
+                  dependency-versions: 'highest'
+
+            - name: Create project
+              if: ${{ matrix.create-project }}
+              run: |
+                  composer create-project sulu/skeleton ${{ matrix.working-directory }} --repository="{\"type\":\"path\",\"url\":\"./${{ matrix.checkout-directory }}/\"}" --stability=dev --no-cache --no-interaction
+                  cd ${{ matrix.working-directory }}
+                  echo 'DATABASE_URL=mysql://root:@127.0.0.1:3306/sulu?serverVersion=5.7' >> .env.local
+                  echo 'DATABASE_URL=mysql://root:@127.0.0.1:3306/sulu_test?serverVersion=5.7' >> .env.test.local
+
+            - name: Create database
+              if: ${{ matrix.create-database }}
+              run: bin/adminconsole doctrine:database:create
+              env: ${{ matrix.env }}
+              working-directory: ${{ matrix.working-directory }}
+
+            - name: Build sulu
+              run: bin/adminconsole sulu:build dev --no-interaction
+              env: ${{ matrix.env }}
+              working-directory: ${{ matrix.working-directory }}
+
+            - name: Build container
+              run: |
+                  bin/adminconsole cache:clear --env dev
+                  bin/websiteconsole cache:clear --env dev
+                  bin/adminconsole cache:clear --env test
+                  bin/websiteconsole cache:clear --env test
+                  bin/adminconsole cache:clear --env stage
+                  bin/websiteconsole cache:clear --env stage
+                  bin/adminconsole cache:clear --env prod
+                  bin/websiteconsole cache:clear --env prod
+              env: ${{ matrix.env }}
+              working-directory: ${{ matrix.working-directory }}
+
+            - name: Lint Code
+              env: ${{ matrix.env }}
+              working-directory: ${{ matrix.working-directory }}
+              run: composer lint
+
+            - name: Bootstrap tests
+              env: ${{ matrix.env }}
+              working-directory: ${{ matrix.working-directory }}
+              run: composer bootstrap-test-environment
+
+            - name: Execute test cases
+              env: ${{ matrix.env }}
+              working-directory: ${{ matrix.working-directory }}
+              run: composer test
+
+            - name: Test download-language script
+              run: bin/adminconsole sulu:admin:download-language nl
+              env: ${{ matrix.env }}
+              working-directory: ${{ matrix.working-directory }}
+
+            - name: Install and configure Node
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Install npm
+              if: ${{ matrix.npm-version }}
+              run: npm install --global npm@${{ matrix.npm-version }}
+
+            - name: Install npm dependencies
+              uses: bahmutov/npm-install@v1
+              with:
+                  working-directory: ${{ matrix.working-directory }}/assets/admin
+                  useLockFile: false
+
+            - name: Build administration interface application
+              run: npm run build
+              working-directory: ${{ matrix.working-directory }}/assets/admin
+
+    php-windows:
+        name: "PHP ${{ matrix.php-version }} and Node.js ${{ matrix.node-version }} on Windows"
+
+        runs-on: windows-latest
+
+        env:
+            APP_ENV: test
+            APP_SECRET: a448d1dfcaa563fce56c2fd9981f662b
+            MAILER_URL: null://localhost
+            SULU_ADMIN_EMAIL:
+            DATABASE_URL: mysql://root:root@127.0.0.1:3306/sulu_test?serverVersion=${{ matrix.mysql-version }}
+            COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            LOCK_DSN: flock
+
+        strategy:
+            fail-fast: false
+            matrix:
+                include:
+                    - php-version: '8.1'
+                      node-version: '16'
+                      npm-version: '6'
+                      mysql-version: '8.0'
+                      php-extensions: 'ctype, iconv, intl, mysql, pdo_mysql, php_fileinfo, imagick'
+                      tools: 'composer:v2'
+
+        steps:
+            - name: Checkout project
+              uses: actions/checkout@v2
+
+            - name: Install and configure PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php-version }}
+                  extensions: ${{ matrix.php-extensions }}
+                  tools: ${{ matrix.tools }}
+                  ini-values: 'memory_limit=-1'
+
+            # Github clones with false line endings on Windows make php-cs-fix fail
+            # Rector seems to fail on Windows with child processes
+            - name: Disable php-cs and rector
+              run: |
+                  echo '<?php file_put_contents("composer.json", str_replace("\"lint-php-cs", "\"deactivate-lint-php-cs-fix", file_get_contents("composer.json"))); file_put_contents("composer.json", str_replace("\"lint-rector", "\"deactivate-lint-rector", file_get_contents("composer.json")));' > disable.php
+                  cat disable.php
+                  php disable.php
+                  cat composer.json
+                  rm disable.php
+
+            - name: Install and configure MySQL
+              uses: shogo82148/actions-setup-mysql@v1.14.1
+              with:
+                  mysql-version: ${{ matrix.mysql-version }}
+                  root-password: 'root'
+                  my-cnf: |
+                      [mysqld]
+                      default-authentication-plugin=mysql_native_password
+
+            - name: Install composer dependencies
+              uses: ramsey/composer-install@v1
+              with:
+                  composer-options: '--no-cache'
+                  dependency-versions: 'highest'
+
+            - name: Build sulu
+              run: bin/adminconsole sulu:build dev --no-interaction
+
+            - name: Build container
+              run: |
+                  bin/adminconsole cache:clear --env dev
+                  bin/websiteconsole cache:clear --env dev
+                  bin/adminconsole cache:clear --env test
+                  bin/websiteconsole cache:clear --env test
+                  bin/adminconsole cache:clear --env stage
+                  bin/websiteconsole cache:clear --env stage
+                  bin/adminconsole cache:clear --env prod
+                  bin/websiteconsole cache:clear --env prod
+
+            - name: Lint Code
+              run: |
+                  composer lint
+
+            - name: Bootstrap tests
+              run: composer bootstrap-test-environment
+
+            - name: Execute test cases
+              run: composer test
+
+            - name: Test download-language script
+              run: bin/adminconsole sulu:admin:download-language nl
+
+            - name: Install and configure Node.js
+              uses: actions/setup-node@v2
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Install npm
+              if: ${{ matrix.npm-version }}
+              run: npm install --global npm@${{ matrix.npm-version }}
+
+            - name: Install npm dependencies
+              uses: bahmutov/npm-install@v1
+              with:
+                  working-directory: assets/admin
+                  useLockFile: false
+
+            - name: Build administration interface application
+              run: npm run build
+              working-directory: assets/admin
