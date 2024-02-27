@@ -39,6 +39,7 @@
         "scheb/2fa-trusted-device": "^6.1",
         "stof/doctrine-extensions-bundle": "^1.8",
         "sulu/sulu": "~2.5.12",
+        "sulu/sylius-consumer-bundle": "^0.6",
         "symfony/config": "^6.3",
         "symfony/dotenv": "^6.3",
         "symfony/flex": "^1.17 || ^2.0",
@@ -46,6 +47,7 @@
         "symfony/mailer": "^6.3",
         "symfony/monolog-bridge": "^6.3",
         "symfony/monolog-bundle": "^3.4",
+        "symfony/redis-messenger": "6.3.*",
         "symfony/runtime": "^6.3",
         "symfony/security-bundle": "^6.3",
         "symfony/twig-bundle": "^6.3"

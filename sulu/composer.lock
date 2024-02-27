@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c9a6f931263229cc78eedcfb3a04eb1e",
+    "content-hash": "239379426b28e75c2afea26b083fd8a3",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -5680,6 +5680,75 @@
             "time": "2024-02-05T18:02:43+00:00"
         },
         {
+            "name": "sulu/sylius-consumer-bundle",
+            "version": "0.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sulu/SuluSyliusConsumerBundle.git",
+                "reference": "187572086b45a434781c41cf26014b19468bf305"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sulu/SuluSyliusConsumerBundle/zipball/187572086b45a434781c41cf26014b19468bf305",
+                "reference": "187572086b45a434781c41cf26014b19468bf305",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2|^8.0",
+                "sulu/sulu": "^2.1 || 2.x-dev",
+                "symfony/config": "^4.4 || ^5.0 || ^6.0",
+                "symfony/dependency-injection": "^4.4 || ^5.0 || ^6.0",
+                "symfony/framework-bundle": "^4.4 || ^5.0 || ^6.0",
+                "symfony/http-kernel": "^4.4 || ^5.0 || ^6.0",
+                "symfony/messenger": "^4.4 || ^5.0 || ^6.0",
+                "webmozart/assert": "^1.9"
+            },
+            "conflict": {
+                "symfony/dependency-injection": "4.1.8",
+                "symfony/framework-bundle": "4.2.7",
+                "symfony/symfony": "4.2.7"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.15 || ^3.0",
+                "handcraftedinthealps/zendsearch": "^2.0",
+                "jackalope/jackalope-doctrine-dbal": "^1.3.4",
+                "jangregor/phpstan-prophecy": "^1.0",
+                "phpspec/prophecy": "^1.15",
+                "phpstan/phpstan": "^1.0",
+                "phpstan/phpstan-doctrine": "^1.0",
+                "phpstan/phpstan-symfony": "^1.0",
+                "phpstan/phpstan-webmozart-assert": "^1.0",
+                "phpunit/phpunit": "^8.2",
+                "symfony/browser-kit": "^4.4 || ^5.0 | ^6.0",
+                "symfony/dotenv": "^4.4 || ^5.0 || ^6.0",
+                "symfony/error-handler": "^4.4 || ^5.0 || ^6.0",
+                "symfony/monolog-bundle": "^3.3"
+            },
+            "type": "sulu-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Sulu\\Bundle\\SyliusConsumerBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sulu Sylius Consumer Bundle",
+                    "homepage": "https://github.com/sulu/SuluSyliusConsumerBundle/contributors"
+                }
+            ],
+            "description": "Consumer for synchronization products with sylius.",
+            "homepage": "https://github.com/sulu/SuluSyliusConsumerBundle",
+            "support": {
+                "issues": "https://github.com/sulu/SuluSyliusConsumerBundle/issues",
+                "source": "https://github.com/sulu/SuluSyliusConsumerBundle/tree/0.6.0"
+            },
+            "time": "2023-12-11T09:08:12+00:00"
+        },
+        {
             "name": "symfony-cmf/routing",
             "version": "3.0.3",
             "source": {
@@ -8144,6 +8213,93 @@
             "time": "2024-01-29T14:46:07+00:00"
         },
         {
+            "name": "symfony/messenger",
+            "version": "v6.3.12",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/messenger.git",
+                "reference": "4ae2ae1da9ff58db2170b26e2db40c0ec60c9f13"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/messenger/zipball/4ae2ae1da9ff58db2170b26e2db40c0ec60c9f13",
+                "reference": "4ae2ae1da9ff58db2170b26e2db40c0ec60c9f13",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1",
+                "psr/log": "^1|^2|^3",
+                "symfony/clock": "^6.3",
+                "symfony/deprecation-contracts": "^2.5|^3"
+            },
+            "conflict": {
+                "symfony/console": "<6.3",
+                "symfony/event-dispatcher": "<5.4",
+                "symfony/event-dispatcher-contracts": "<2.5",
+                "symfony/framework-bundle": "<5.4",
+                "symfony/http-kernel": "<5.4",
+                "symfony/serializer": "<5.4"
+            },
+            "require-dev": {
+                "psr/cache": "^1.0|^2.0|^3.0",
+                "symfony/console": "^6.3",
+                "symfony/dependency-injection": "^5.4|^6.0",
+                "symfony/event-dispatcher": "^5.4|^6.0",
+                "symfony/http-kernel": "^5.4|^6.0",
+                "symfony/process": "^5.4|^6.0",
+                "symfony/property-access": "^5.4|^6.0",
+                "symfony/rate-limiter": "^5.4|^6.0",
+                "symfony/routing": "^5.4|^6.0",
+                "symfony/serializer": "^5.4|^6.0",
+                "symfony/service-contracts": "^2.5|^3",
+                "symfony/stopwatch": "^5.4|^6.0",
+                "symfony/validator": "^5.4|^6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Messenger\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Samuel Roze",
+                    "email": "samuel.roze@gmail.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Helps applications send and receive messages to/from other applications or via message queues",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/messenger/tree/v6.3.12"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2024-01-30T13:17:59+00:00"
+        },
+        {
             "name": "symfony/mime",
             "version": "v6.3.12",
             "source": {
@@ -9280,6 +9436,73 @@
             "homepage": "https://symfony.com",
             "support": {
                 "source": "https://github.com/symfony/proxy-manager-bridge/tree/v6.3.12"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2024-01-23T14:35:58+00:00"
+        },
+        {
+            "name": "symfony/redis-messenger",
+            "version": "v6.3.12",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/redis-messenger.git",
+                "reference": "fcdc5cd7923e0777c7957e805681be93164995af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/redis-messenger/zipball/fcdc5cd7923e0777c7957e805681be93164995af",
+                "reference": "fcdc5cd7923e0777c7957e805681be93164995af",
+                "shasum": ""
+            },
+            "require": {
+                "ext-redis": "*",
+                "php": ">=8.1",
+                "symfony/messenger": "^6.1"
+            },
+            "require-dev": {
+                "symfony/property-access": "^5.4|^6.0",
+                "symfony/serializer": "^5.4|^6.0"
+            },
+            "type": "symfony-messenger-bridge",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Messenger\\Bridge\\Redis\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Redis extension Messenger Bridge",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/redis-messenger/tree/v6.3.12"
             },
             "funding": [
                 {

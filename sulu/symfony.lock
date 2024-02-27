@@ -172,6 +172,18 @@
             "config/packages/stof_doctrine_extensions.yaml"
         ]
     },
+    "sulu/sylius-consumer-bundle": {
+        "version": "0.6",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "0.4",
+            "ref": "a509964c56476d2bbaf36f0addb8e1c5a2f2bf5d"
+        },
+        "files": [
+            "config/packages/sulu_sylius_consumer.yaml"
+        ]
+    },
     "symfony-cmf/routing-bundle": {
         "version": "3.0.2"
     },
@@ -252,6 +264,18 @@
         },
         "files": [
             "config/packages/mailer.yaml"
+        ]
+    },
+    "symfony/messenger": {
+        "version": "6.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "6.0",
+            "ref": "ba1ac4e919baba5644d31b57a3284d6ba12d52ee"
+        },
+        "files": [
+            "config/packages/messenger.yaml"
         ]
     },
     "symfony/monolog-bundle": {
