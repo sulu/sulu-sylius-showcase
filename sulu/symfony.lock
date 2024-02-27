@@ -88,6 +88,9 @@
             "config/packages/fos_rest.yaml"
         ]
     },
+    "handcraftedinthealps/elasticsearch-bundle": {
+        "version": "5.4.1"
+    },
     "handcraftedinthealps/rest-routing-bundle": {
         "version": "1.0.6"
     },
@@ -170,6 +173,19 @@
         },
         "files": [
             "config/packages/stof_doctrine_extensions.yaml"
+        ]
+    },
+    "sulu/article-bundle": {
+        "version": "2.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "2.0",
+            "ref": "dca8915a957ab45b7cd29de8861bd14303cee104"
+        },
+        "files": [
+            "config/packages/sulu_article.yaml",
+            "config/routes/sulu_article_admin.yaml"
         ]
     },
     "sulu/sylius-consumer-bundle": {

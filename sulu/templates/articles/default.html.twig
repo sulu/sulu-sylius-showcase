@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <h1>{{ content.title }}</h1>
+
+    <p>
+        {{ content.price }} €
+    </p>
+
+    <p>
+        {{ content.description|default()|raw }}
+    </p>
+{% endblock %}

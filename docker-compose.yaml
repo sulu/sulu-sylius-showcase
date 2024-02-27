@@ -16,3 +16,13 @@ services:
         command: redis-server
         ports:
             - 6379:6379
+
+    elasticsearch:
+        image: elasticsearch:7.17.18
+        environment:
+            discovery.type: single-node
+            xpack.security.enabled: 'false'
+        volumes:
+            - ./.docker/data/elasticsearch:/usr/share/elasticsearch/data
+        ports:
+            - 9200:9200

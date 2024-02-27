@@ -3,6 +3,8 @@ start-services:
 
 start-sulu:
 	cd sulu && symfony server:start -d
+
+start-sulu-consumer:
 	cd sulu && symfony run -d --watch=config,src,templates symfony console messenger:consume sulu_sylius_transport -vv
 
 start-sylius:
@@ -28,6 +30,7 @@ stop-sylius:
 
 synch-taxons:
 	symfony php bin/console sulu-sylius:synchronize:taxon
+	symfony php bin/console sulu-sylius:synchronize:products
 
 start: start-services start-sulu start-sylius
 

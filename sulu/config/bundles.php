@@ -45,4 +45,6 @@ return [
     Sulu\Bundle\TrashBundle\SuluTrashBundle::class => ['all' => true],
     Scheb\TwoFactorBundle\SchebTwoFactorBundle::class => ['all' => true],
     Sulu\Bundle\SyliusConsumerBundle\SuluSyliusConsumerBundle::class => ['all' => true],
+    ONGR\ElasticsearchBundle\ONGRElasticsearchBundle::class => ['all' => true],
+    Sulu\Bundle\ArticleBundle\SuluArticleBundle::class => ['all' => true],
 ];
