@@ -52,7 +52,8 @@
         "symfony/redis-messenger": "6.3.*",
         "symfony/runtime": "^6.3",
         "symfony/security-bundle": "^6.3",
-        "symfony/twig-bundle": "^6.3"
+        "symfony/twig-bundle": "^6.3",
+        "symfony/webpack-encore-bundle": "^2.1"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.41",
