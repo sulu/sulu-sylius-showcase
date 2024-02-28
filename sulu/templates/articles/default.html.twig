@@ -3,8 +3,16 @@
 {% block content %}
     <h1>{{ content.title }}</h1>
 
-    <p>
-        {{ content.price }} €
+    <p {{ stimulus_controller('add_to_cart', { 'code': content.code }) }}>
+        {{ content.price / 100 }} €
+
+        <button
+                {{ stimulus_action('add_to_cart', 'addToCart', 'click') }}
+                {{ stimulus_target('add_to_cart', 'button') }}
+                disabled="disabled"
+        >
+            Add to card
+        </button>
     </p>
 
     <p>

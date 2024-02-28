@@ -33,6 +33,11 @@
                         </li>
                     {% endfor %}
                 </ul>
+
+                <div {{ stimulus_controller('cart') }}>
+                    Cart (<span {{ stimulus_target('cart', 'quantity') }}>-</span>) - <span {{ stimulus_target('cart', 'amount') }}>-</span> €
+                    <button {{ stimulus_action('cart', 'checkout', 'click') }}>Checkout</button>
+                </div>
             </nav>
         {% endblock %}
     </header>
@@ -53,6 +58,9 @@
     </footer>
 
     {% block javascripts %}{% endblock %}
+    <script>
+        window.SYLIUS_BASE_URL = '{{ SYLIUS_BASE_URL }}';
+    </script>
     {{ encore_entry_script_tags('app') }}
 </body>
 </html>

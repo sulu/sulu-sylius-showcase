@@ -4,4 +4,14 @@
     <h1>{{ content.title }}</h1>
 
     {{ content.article|raw }}
+
+    <article>
+        {% for product in content.products %}
+            <h2>{{ product.title }}</h2>
+            <p>
+                {{ product.content.content.price / 100 }} €
+            </p>
+            <a href="{{ product.routePath }}">More info</a>
+        {% endfor %}
+    </article>
 {% endblock %}

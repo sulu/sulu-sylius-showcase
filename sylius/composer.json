@@ -23,6 +23,7 @@
     ],
     "require": {
         "php": "^8.0",
+        "nelmio/cors-bundle": "^2.4",
         "sulu/sylius-producer-plugin": "dev-dependencies",
         "sylius/paypal-plugin": "^1.5",
         "sylius/sylius": "^1.12.11",

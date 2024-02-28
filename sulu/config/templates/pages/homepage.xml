@@ -42,5 +42,15 @@
                 <title lang="de">Artikel</title>
             </meta>
         </property>
+
+        <property name="products" type="smart_content">
+            <meta>
+                <title lang="en">Products</title>
+                <title lang="de">Produkte</title>
+            </meta>
+            <params>
+                <param name="provider" value="articles"/>
+            </params>
+        </property>
     </properties>
 </template>

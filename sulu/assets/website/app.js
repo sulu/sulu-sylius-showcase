@@ -5,5 +5,18 @@
  * (and its CSS file) in your base layout (base.html.twig).
  */
 
-// any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.css';
+import './bootstrap.js';
+
+const originalSetItem = localStorage.setItem;
+
+localStorage.setItem = function(key, value) {
+    const event = new Event('localStorage');
+
+    event.value = value;
+    event.key = key;
+
+    document.dispatchEvent(event);
+
+    originalSetItem.apply(this, arguments);
+};

@@ -52,6 +52,7 @@
         "symfony/redis-messenger": "6.3.*",
         "symfony/runtime": "^6.3",
         "symfony/security-bundle": "^6.3",
+        "symfony/stimulus-bundle": "^2.15",
         "symfony/twig-bundle": "^6.3",
         "symfony/webpack-encore-bundle": "^2.1"
     },
