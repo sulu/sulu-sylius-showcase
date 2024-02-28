@@ -7,14 +7,14 @@ import {
     selectPayment,
     complete,
 } from "../services/cart";
-import {
-    loadProduct,
-} from "../services/product";
 
 export default class extends Controller {
     static targets = [
         'quantity',
         'amount',
+        'buttonText',
+        'overlay',
+        'spinner',
     ];
 
     connect() {
@@ -27,6 +27,11 @@ export default class extends Controller {
         });
     }
 
+    toggleLoading = () => {
+        this.spinnerTarget.classList.toggle('hidden');
+        this.buttonTextTarget.classList.toggle('hidden');
+    }
+
     updateCart(cart) {
         if (cart) {
             this.quantityTarget.innerText = cart.items.reduce((acc, item) => acc + item.quantity, 0);
@@ -35,6 +40,7 @@ export default class extends Controller {
     }
 
     checkout() {
+        this.toggleLoading();
         const cart = loadLocalCart();
         addressCart(cart.tokenValue, 'max@mustermann.de', {
             countryCode: 'DE',
@@ -47,13 +53,18 @@ export default class extends Controller {
             selectShipment(cart.tokenValue, cart.shipments[0].id, 'ups').then(() => {
                 selectPayment(cart.tokenValue, cart.payments[0].id, 'cash_on_delivery').then(() => {
                     complete(cart.tokenValue, 'test').then(() => {
-                        alert('Completed');
+                        this.toggleLoading();
                         storeLocalCart(null);
                         this.quantityTarget.innerText = '-';
                         this.amountTarget.innerText = '-';
+                        this.overlayTarget.classList.remove('hidden');
                     });
                 });
             });
         });
+    }
+
+    closeOverlay = () => {
+        this.overlayTarget.classList.add('hidden');
     }
 }

@@ -20,15 +20,15 @@
 <body>
     <header>
         {% block header %}
-            <nav>
-                <ul>
+            <nav class="bg-blue-500 p-4 text-white flex justify-between">
+                <ul class="list-none">
                     <li>
-                        <a href="{{ sulu_content_root_path() }}">Homepage</a>
+                        <a class="text-white hover:text-gray-300" href="{{ sulu_content_root_path() }}">Homepage</a>
                     </li>
 
                     {% for item in sulu_navigation_root_tree('main') %}
                         <li>
-                            <a href="{{ sulu_content_path(item.url, item.webspaceKey) }}"
+                            <a class="text-white hover:text-gray-300" href="{{ sulu_content_path(item.url, item.webspaceKey) }}"
                                title="{{ item.title }}">{{ item.title }}</a>
                         </li>
                     {% endfor %}
@@ -36,22 +36,34 @@
 
                 <div {{ stimulus_controller('cart') }}>
                     Cart (<span {{ stimulus_target('cart', 'quantity') }}>-</span>) - <span {{ stimulus_target('cart', 'amount') }}>-</span> €
-                    <button {{ stimulus_action('cart', 'checkout', 'click') }}>Checkout</button>
+                    <button {{ stimulus_action('cart', 'checkout', 'click') }} class="bg-white text-blue-500 ml-3 hover:bg-gray-200 py-1 px-2 rounded">
+                        <span {{ stimulus_target('cart', 'buttonText') }}>
+                            Checkout
+                        </span>
+                        <span {{ stimulus_target('cart', 'spinner') }} class="inset-0 flex items-center justify-center space-x-2 hidden">
+                            <svg class="animate-spin h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        </span>
+                    </button>
+
+                    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden" {{ stimulus_target('cart', 'overlay') }}>
+                        <div class="bg-white p-4 rounded text-center text-black">
+                            <p class="mb-4">Cart successfully checked out!</p>
+                            <button class="bg-blue-500 text-white hover:bg-blue-700 py-2 px-4 rounded" {{ stimulus_action('cart', 'closeOverlay', 'click') }}>Close</button>
+                        </div>
+                    </div>
                 </div>
             </nav>
         {% endblock %}
     </header>
 
-    <form action="{{ path('sulu_search.website_search') }}" method="GET">
-        <input name="q" type="text" placeholder="Search"/>
-        <input type="submit" value="Go"/>
-    </form>
-
-    <main>
+    <main class="mx-auto w-4/5 mb-5 mt-5 pb-20">
         {% block content %}{% endblock %}
     </main>
 
-    <footer>
+    <footer class="fixed inset-x-0 bottom-0 bg-blue-500 p-4 text-white text-center">
         {% block footer %}
             <p>Copyright {{ 'now'|date('Y') }} SULU</p>
         {% endblock %}

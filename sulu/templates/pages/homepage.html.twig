@@ -1,17 +1,21 @@
 {% extends "base.html.twig" %}
 
 {% block content %}
-    <h1>{{ content.title }}</h1>
+    <h1 class="text-4xl font-bold mb-4">{{ content.title }}</h1>
 
-    {{ content.article|raw }}
+    <div class="prose prose-lg mb-8">
+        {{ content.article|raw }}
+    </div>
 
-    <article>
+    <article class="space-y-4">
         {% for product in content.products %}
-            <h2>{{ product.title }}</h2>
-            <p>
-                {{ product.content.content.price / 100 }} €
-            </p>
-            <a href="{{ product.routePath }}">More info</a>
+            <div class="border p-4 rounded">
+                <h2 class="text-2xl font-semibold mb-2">{{ product.title }}</h2>
+                <p class="text-lg mb-2">
+                    {{ product.content.content.price / 100 }} €
+                </p>
+                <a href="{{ product.routePath }}" class="text-blue-500 hover:underline">More info</a>
+            </div>
         {% endfor %}
     </article>
 {% endblock %}

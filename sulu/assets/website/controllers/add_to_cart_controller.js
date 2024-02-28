@@ -16,6 +16,9 @@ export default class extends Controller {
 
     static targets = [
         'button',
+        'buttonText',
+        'overlay',
+        'spinner',
     ];
 
     product = null;
@@ -28,22 +31,35 @@ export default class extends Controller {
             });
     }
 
-    addToCart() {
+    toggleLoading = () => {
+        this.buttonTarget.disabled = !this.buttonTarget.disabled;
+        this.spinnerTarget.classList.toggle('hidden');
+        this.buttonTextTarget.classList.toggle('hidden');
+    }
+
+    addToCart = () =>{
+        this.toggleLoading();
         const cart = loadLocalCart();
         if (cart) {
-            addItemToCart(cart.tokenValue, this.product.firstVariant.code, 1).then((newCart) => {
+            addItemToCart(cart.tokenValue, this.product.firstVariant.code, 1).then(((newCart) => {
                 storeLocalCart(newCart);
-                alert('Item added to cart');
-            });
+                this.overlayTarget.classList.remove('hidden');
+                this.toggleLoading();
+            }).bind(this));
 
             return;
         }
 
         createCart().then((cart) => {
-            addItemToCart(cart.tokenValue, this.product.firstVariant.code, 1).then((newCart) => {
+            addItemToCart(cart.tokenValue, this.product.firstVariant.code, 1).then(((newCart) => {
                 storeLocalCart(newCart);
-                alert('Item added to cart');
-            });
+                this.overlayTarget.classList.remove('hidden');
+                this.toggleLoading();
+            }).bind(this));
         });
+    }
+
+    closeOverlay = () => {
+        this.overlayTarget.classList.add('hidden');
     }
 }
