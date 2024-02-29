@@ -4,7 +4,7 @@
     <h1 class="text-4xl font-bold mb-4">{{ content.title }}</h1>
 
     <div {{ stimulus_controller('add_to_cart', { 'code': content.code }) }} class="mb-4">
-        <span class="text-lg block mb-2">Price: {{ content.price / 100 }} €</span>
+        <span class="text-lg block mb-2">Price: {{ content.price }} €</span>
         <button
                 {{ stimulus_action('add_to_cart', 'addToCart', 'click') }}
                 {{ stimulus_target('add_to_cart', 'button') }}

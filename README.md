@@ -1,5 +1,9 @@
 # Sulu Sylius Showcase
 
+TODO:
+* Mailcatcher
+* Fix synch when already existing
+
 This is a Sulu and Sylius based showcase. It contains an installation of Sulu and Sylius and demonstrates how to
 integrate this two systems.
 
@@ -48,6 +52,17 @@ make start
 You can add a new section to your `README.md` file to describe the basic commands from the `Makefile`. Here's how you
 can modify it:
 
+## Access URLs
+
+This project includes several services that can be accessed via the following URLs:
+
+- **Sulu**: [https://127.0.0.1:8000](https://127.0.0.1:8000)
+- **Sulu Admin Portal**: [https://127.0.0.1:8000/admin](https://127.0.0.1:8000/admin)
+- **Sylius Admin Portal**: [https://127.0.0.1:8001/admin](https://127.0.0.1:8001/admin)
+- **Mail Catcher**: [http://127.0.0.1:1080](http://127.0.0.1:1080)
+
+Please ensure that the services are running before trying to access these URLs.
+
 ## Basic Makefile Commands
 
 This project includes a Makefile with predefined commands for common tasks. Here are some of the basic commands:
@@ -74,6 +89,11 @@ make log
 
 ```bash
 make stop
+```
+- `make start-sulu-consumer`: Starts the Sulu consumer. This command runs the Symfony console messenger to consume the `sulu_sylius_transport`.
+
+```bash
+make start-sulu-consumer
 ```
 
 - `make synch-taxons`: Synchronizes Sylius Taxons into Sulu Categories.
