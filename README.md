@@ -60,9 +60,9 @@ make synch-products
 
 This project includes several services that can be accessed via the following URLs:
 
-- **Sulu**: [https://127.0.0.1:8000](https://127.0.0.1:8000)
-- **Sulu Admin Portal**: [https://127.0.0.1:8000/admin](https://127.0.0.1:8000/admin)
-- **Sylius Admin Portal**: [https://127.0.0.1:8001/admin](https://127.0.0.1:8001/admin)
+- **Sulu**: [http://127.0.0.1:8000](https://127.0.0.1:8000)
+- **Sulu Admin Portal**: [http://127.0.0.1:8000/admin](https://127.0.0.1:8000/admin)
+- **Sylius Admin Portal**: [http://127.0.0.1:8001/admin](https://127.0.0.1:8001/admin)
 - **Mail Catcher**: [http://127.0.0.1:1080](http://127.0.0.1:1080)
 
 Please ensure that the services are running before trying to access these URLs.

@@ -2,13 +2,13 @@ start-services:
 	docker compose up -d
 
 start-sulu:
-	cd sulu && symfony server:start -d --port 8000
+	cd sulu && symfony server:start -d --no-tls --port 8000
 
 start-sulu-consumer:
 	cd sulu && ulimit -n 2048 && symfony run -d --watch=config,src,templates symfony console messenger:consume sulu_sylius_transport -vv
 
 start-sylius:
-	cd sylius && symfony server:start -d --port 8001
+	cd sylius && symfony server:start -d --no-tls --port 8001
 
 install-sulu:
 	cd sulu && symfony composer install
