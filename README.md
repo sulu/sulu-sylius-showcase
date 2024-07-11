@@ -38,19 +38,30 @@ git clone git@github.com:sulu/sulu-sylius-showcase.git
 cd sulu-sylius-showcase
 ```
 
-3. Run the Makefile install command. This will set up the development environment and destroy any existing data.
+3. Start the services using the Makefile start command.
+
+```bash
+make start
+```
+
+4. Run the Makefile install command. This will set up the development environment and destroy any existing data.
 
 ```bash
 make install
 ```
 
-4. Start the services using the Makefile start command.
+5. Start the Sulu consumer to synchronize the products and taxons.
 
 ```bash
-make start
+make start-sulu-consumer
 ```
-You can add a new section to your `README.md` file to describe the basic commands from the `Makefile`. Here's how you
-can modify it:
+
+6. Synchronize the taxons and example products from Sylius to Sulu.
+
+```bash
+make synch-taxons
+make synch-products
+```
 
 ## Access URLs
 

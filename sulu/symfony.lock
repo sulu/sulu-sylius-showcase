@@ -124,6 +124,9 @@
             "config/packages/http_discovery.yaml"
         ]
     },
+    "phpcr/phpcr-migrations-bundle": {
+        "version": "1.6.0"
+    },
     "phpstan/phpstan": {
         "version": "1.10",
         "recipe": {
