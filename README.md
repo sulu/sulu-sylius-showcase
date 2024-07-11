@@ -1,12 +1,5 @@
 # Sulu Sylius Showcase
 
-TODO:
-* Mailcatcher
-* Fix synch when already existing
-
-This is a Sulu and Sylius based showcase. It contains an installation of Sulu and Sylius and demonstrates how to
-integrate this two systems.
-
 ---
 **Important:** This project and the predefined `make` commands heavily rely on the Symfony CLI. Ensure it's installed
 and available in your PATH. Download it from [here](https://symfony.com/download) or use the `make install-symfony-cli`
